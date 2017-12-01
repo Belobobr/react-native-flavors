@@ -18,7 +18,8 @@ function setup() {
         .action(flavorName => run(flavorName));
 }
 
-function getFlavorPath(argFlavorName) {
+function resolveFlavorName(argFlavorName) {
+    console.log('Resolve flavor name for commandArguments: ' + argFlavorName);
     const CONFIG_PATH = './flavors/config.json';
 
     return fs.readFileAsync(CONFIG_PATH, 'utf8')
@@ -32,29 +33,40 @@ function getFlavorPath(argFlavorName) {
                 throw Error('Flavor name not specified.');
             }
 
-            //ищем в конфиге указанный flavor, не нашли кидаем ошибку
-            if (!config.flavors.includes(flavorName)) {
-                throw Error('Flavor name not specified in flavors.')
+            if (!config.flavors) {
+                throw Error('Flavors not specified in config.json.')
             }
 
+            //ищем в конфиге указанный flavor, не нашли кидаем ошибку
+            if (!config.flavors.includes(flavorName)) {
+                throw Error('Flavor {' + flavorName +  '} not specified in flavors.')
+            }
+
+            console.log('Resolved flavorName: ' + flavorName);
             return flavorName;
-        })
-        .then(flavorName => {
-            //формируем путь к flavor
-            return './flavors/' + flavorName + '/';
         })
 }
 
 function run(argFlavorName) {
-    console.log('Flavor initialization started: ' + argFlavorName);
+    console.log("init: run: " + argFlavorName);
+    let resolvedFlavorName;
 
-    getFlavorPath(argFlavorName)
+    return resolveFlavorName(argFlavorName)
+        .then(flavorName => {
+            console.log('Flavor initialization started: ' + flavorName);
+            resolvedFlavorName = flavorName;
+            return './flavors/' + flavorName + '/';
+        })
         .then(flavorPath => {
-            return fs.openAsync(flavorPath, 'r').catch(() => {
-                throw Error("Can't find flavor at path: " + path.resolve(flavorPath));
-            })
+            return fs.openAsync(flavorPath, 'r')
+                .then(() => Promise.resolve(flavorPath))
+                .catch(() => {
+                    throw Error("Can't find flavor at path: " + path.resolve(flavorPath))
+                })
         })
         .then((flavorPath) => {
+            console.log(flavorPath);
+
             console.log('Flavor creating symlink.');
             return new Promise((resolve, reject) => {
                 vfs.src([flavorPath + '*.*'])
@@ -73,6 +85,7 @@ function run(argFlavorName) {
             console.error(chalk.red(error));
             process.exit(1);
         })
+        .then(() => Promise.resolve(resolvedFlavorName));
 }
 
 function log(file, cb) {

@@ -1,6 +1,6 @@
 #!/usr/local/bin/node --harmony
 const program = require('commander');
-const {run} = require('./init');
+const {run: initFlavor} = require('./init');
 const child_process = require('child_process');
 
 function setup() {
@@ -9,16 +9,22 @@ function setup() {
         .description('run application on android for current flavor')
         .alias('ra')
         .arguments('[flavorName]')
-        .action(function (flavorName) {
-            var cmd = 'react-native';
+        .action(flavorName => {
+            console.log(flavorName);
 
-            try {
-                child_process.execFileSync(cmd, ['run-android'], {
-                    stdio: [process.stdin, process.stdout, process.stderr],
+            initFlavor(flavorName)
+                .then(flavorName => {
+                    console.log('run-android for flavor: ' + flavorName);
+                    let cmd = 'react-native';
+
+                    try {
+                        child_process.execFileSync(cmd, ['run-android', '--variant=' + flavorName], {
+                            stdio: [process.stdin, process.stdout, process.stderr],
+                        });
+                    } catch (error) {
+                        console.log(error);
+                    }
                 });
-            } catch (error) {
-
-            }
         })
 }
 
