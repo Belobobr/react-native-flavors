@@ -1,0 +1,29 @@
+{
+  "name": "react-native-build-flavors",
+  "version": "0.0.1",
+  "description": "A command line tool for creating aps with build flavors",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "build-flavors"
+  ],
+  "author": "Mikhail Sednev",
+  "license": "Apache-2.0",
+  "bin": {
+    "react-native-flavor": "./index.js"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "chalk": "^2.3.0",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.12.2",
+    "gulp": "^3.9.1",
+    "map-stream": "0.0.7",
+    "superagent": "^3.8.1",
+    "vinyl-fs": "^2.4.4"
+  }
+}

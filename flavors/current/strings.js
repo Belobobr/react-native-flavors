@@ -1,0 +1,1 @@
+/Users/mixailsednev/work/react-native-build-flavors/flavors/alphaott/strings.js
