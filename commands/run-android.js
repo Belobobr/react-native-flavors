@@ -22,7 +22,7 @@ function setup() {
                             stdio: [process.stdin, process.stdout, process.stderr],
                         });
                     } catch (error) {
-                        console.log(error);
+                        // console.log(error);
                     }
                 });
         })
