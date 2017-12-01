@@ -1,6 +1,6 @@
 #!/usr/local/bin/node --harmony
 const program = require('commander');
-const init = require('./init');
+const {run} = require('./init');
 const child_process = require('child_process');
 
 function setup() {
@@ -8,6 +8,7 @@ function setup() {
         .command('run-android')
         .description('run application on android for current flavor')
         .alias('ra')
+        .arguments('[flavorName]')
         .action(function (flavorName) {
             var cmd = 'react-native';
 
