@@ -21,6 +21,7 @@
     "co": "^4.6.0",
     "co-prompt": "^1.0.0",
     "commander": "^2.12.2",
+    "fs-extra": "^4.0.2",
     "gulp": "^3.9.1",
     "map-stream": "0.0.7",
     "superagent": "^3.8.1",

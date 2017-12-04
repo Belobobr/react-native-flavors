@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const fs = require("fs");
-const makeFlavorPatch = require('./patches/makeFlavorPatch');
-const applyPatch = require('./patches/applyPatch');
+const helper = require('./helper');
+const applyPatch = require('./applyPatch');
 
 //TODO sign application, setup application icon, setup strings and other resources from flavor config
 module.exports = function linkAndroidFlavor(androidProjectConfig, flavorName) {
@@ -26,11 +26,11 @@ module.exports = function linkAndroidFlavor(androidProjectConfig, flavorName) {
 
 function isInstalledAndroidFlavor(config, name) {
     const buildGradle = fs.readFileSync(config.buildGradlePath, 'utf8');
-    return makeFlavorPatch(name).installPattern.test(buildGradle);
+    return helper.makeFlavorPatch(name).installPattern.test(buildGradle);
 }
 
 function registerAndroidFlavor(config, name) {
-    const flavorPatch = makeFlavorPatch(name);
+    const flavorPatch = helper.makeFlavorPatch(name);
     applyPatch(config.buildGradlePath, flavorPatch);
 }
 

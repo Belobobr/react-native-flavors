@@ -1,8 +1,10 @@
 #!/usr/local/bin/node --harmony
 const program = require('commander');
 const {run: initFlavor} = require('./init');
+const helper = require('./../android/helper');
 const child_process = require('child_process');
 
+//TODO must start proper activity
 //TODO specify build type
 function setup() {
     program
@@ -20,7 +22,11 @@ function setup() {
                     let cmd = 'react-native';
 
                     try {
-                        child_process.execFileSync(cmd, ['run-android', `--variant=${flavorName}Debug`], {
+                        child_process.execFileSync(cmd, [
+                            `run-android`,
+                            `--variant=${flavorName}Debug`,
+                            `--appIdSuffix=${helper.getApplicationIdSuffix(flavorName)}`
+                        ], {
                             stdio: [process.stdin, process.stdout, process.stderr],
                         });
                     } catch (error) {
