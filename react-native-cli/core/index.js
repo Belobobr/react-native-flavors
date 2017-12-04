@@ -28,7 +28,7 @@ const defaultRNConfig = {
  * Loads the CLI configuration
  */
 function getCliConfig() {
-    return {getProjectConfig: defaultRNConfig.getProjectConfig};
+    return {get: defaultRNConfig.getProjectConfig};
 }
 
 module.exports = getCliConfig();

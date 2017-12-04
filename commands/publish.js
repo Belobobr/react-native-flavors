@@ -1,6 +1,5 @@
 #!/usr/local/bin/node --harmony
-
-var program = require('commander');
+const program = require('commander');
 
 function setup() {
     program

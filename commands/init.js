@@ -1,13 +1,12 @@
 #!/usr/bin/env --harmony
-const map = require('map-stream');
-const vfs = require('vinyl-fs');
 const program = require('commander');
 const path = require('path');
 const chalk = require('chalk');
 const Promise = require('bluebird');
 const fs = require("fs");
-const config = require('./../react-native-cli/core');
+const ProjectConfig = require('./../react-native-cli/core');
 Promise.promisifyAll(fs);
+const linkAndroidFlavor = require('./../android/index');
 
 //TODO accept flavor path from command line
 function setup() {
@@ -20,7 +19,6 @@ function setup() {
 }
 
 function resolveFlavorName(argFlavorName) {
-    console.log('Resolve flavor name for commandArguments: ' + argFlavorName);
     const CONFIG_PATH = './flavors/config.json';
 
     return fs.readFileAsync(CONFIG_PATH, 'utf8')
@@ -48,21 +46,16 @@ function resolveFlavorName(argFlavorName) {
         })
 }
 
-function registerAndroidFlavor() {
-
-}
-
-function linkAndroidFlavor() {
-
-}
-
 function linkNativeFlavors(flavorName) {
+    console.log('Config: ' + ProjectConfig);
+    let config = ProjectConfig.get();
     console.log('Link native flavors');
-    console.log(config.getProjectConfig());
-    return Promise.resolve(flavorName);
+    return linkAndroidFlavor(config.android, flavorName);
 }
 
 function configureJavascriptFlavors(flavorName) {
+    const CURRENT = './flavors/current';
+
     return Promise.resolve(flavorName)
         .then(flavorName => {
             return './flavors/' + flavorName + '/';
@@ -74,20 +67,23 @@ function configureJavascriptFlavors(flavorName) {
                     throw Error("Can't find flavor at path: " + path.resolve(flavorPath))
                 })
         })
+        .then(flavorPath => {
+            return fs.unlinkAsync(CURRENT)
+                .then(() => Promise.resolve(flavorPath))
+                .catch(() => {
+                    throw Error("Can't remove previously created symlink at path: " + path.resolve(flavorPath))
+                })
+        })
         .then((flavorPath) => {
             console.log('Flavor creating symlink.');
-            return new Promise((resolve, reject) => {
-                vfs.src([flavorPath + '*.*'])
-                    .pipe(map(log))
-                    .pipe(vfs.symlink('./flavors/' + 'current/'))
-                    .on('finish', () => {
-                        console.log('Flavor initialization completed.');
-                        resolve(flavorName);
-                    })
-                    .on('error', (error) => {
-                        reject(error);
-                    })
-            });
+            return fs.symlinkAsync(path.resolve(flavorPath), path.resolve('./flavors/current'))
+                .then(() => {
+                    console.log('Flavor initialization completed.');
+                    return Promise.resolve(flavorName);
+                })
+                .catch((error) => {
+                    return Promise.reject(error);
+                })
         })
 }
 

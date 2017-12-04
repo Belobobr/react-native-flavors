@@ -1,11 +1,12 @@
 #!/usr/local/bin/node --harmony
-var program = require('commander');
+const program = require('commander');
 
 function setup() {
     program
-        .command('assemble-debug <platform>')
+        .command('assemble-debug [platform] [flavor]')
         .description('assemble debug build for current flavor and platform')
         .alias('ad')
+        .arguments('[flavorName]')
 }
 
 module.exports = {

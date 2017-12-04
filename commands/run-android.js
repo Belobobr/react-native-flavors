@@ -3,6 +3,7 @@ const program = require('commander');
 const {run: initFlavor} = require('./init');
 const child_process = require('child_process');
 
+//TODO specify build type
 function setup() {
     program
         .command('run-android')
@@ -12,13 +13,14 @@ function setup() {
         .action(flavorName => {
             console.log(flavorName);
 
+            //TODO User need to have opportunity to choose create new flavor or not (if not present).
             initFlavor(flavorName)
                 .then(flavorName => {
                     console.log('run-android for flavor: ' + flavorName);
                     let cmd = 'react-native';
 
                     try {
-                        child_process.execFileSync(cmd, ['run-android', '--variant=' + flavorName], {
+                        child_process.execFileSync(cmd, ['run-android', `--variant=${flavorName}Debug`], {
                             stdio: [process.stdin, process.stdout, process.stderr],
                         });
                     } catch (error) {
