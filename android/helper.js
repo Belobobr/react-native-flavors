@@ -1,7 +1,7 @@
 //TODO use getterForApplicationId in regexp as well.
 
 function makeFlavorPatch(flavorName) {
-    const installPattern = new RegExp(`\\s*${flavorName} {\\s*\\n\\s*applicationIdSuffix "\\.${getApplicationIdSuffix(flavorName)}"\\s*\\n\\s*versionNameSuffix "-${flavorName}"\\s*\\n\\s*}\\s*`);
+    const installPattern = new RegExp(`\\s*${flavorName} {\\s*\\n\\s*applicationIdSuffix "\\.${getApplicationIdSuffix(flavorName)}"\\s*\\n\\s*}\\s*`);
 
     return {
         installPattern,
@@ -9,12 +9,10 @@ function makeFlavorPatch(flavorName) {
         alternativePattern: /\s+android {\s*\n/,
         patch: `\t\t${flavorName} {\n` +
         `\t\t\tapplicationIdSuffix ".${getApplicationIdSuffix(flavorName)}"\n` +
-        `\t\t\tversionNameSuffix "-${flavorName}"\n` +
         `\t\t}\n`,
         alternativePatch: '\tproductFlavors {\n' +
         `\t\t${flavorName} {\n` +
         `\t\t\tapplicationIdSuffix ".${getApplicationIdSuffix(flavorName)}"\n` +
-        `\t\t\tversionNameSuffix "-${flavorName}"\n` +
         `\t\t}\n` +
         `\t}\n`
     };

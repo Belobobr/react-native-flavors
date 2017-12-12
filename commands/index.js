@@ -5,7 +5,8 @@ const commands = [
     require('./assemble-debug'),
     require('./run-ios'),
     require('./run-android'),
-    require('./publish')
+    require('./publish'),
+    require('./init-code-push')
 ];
 
 module.exports = commands;

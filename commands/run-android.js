@@ -6,6 +6,7 @@ const child_process = require('child_process');
 
 //TODO must start proper activity
 //TODO specify build type
+//TODO watchman must observe changes in flavor directory and copy them to current
 function setup() {
     program
         .command('run-android')
