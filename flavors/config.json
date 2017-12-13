@@ -2,6 +2,10 @@
   "flavors": [
     "alphaott", "zaaptv"
   ],
+  "buildTypes": [
+    {"title": "beta", "deployment" : "beta"},
+    {"title": "release", "deployment" : "release"}
+  ],
   "current": "alphaott",
   "codePushTokenId": "25e4da50-0f94-4cf7-87fc-f02a8cf4b98c"
 }

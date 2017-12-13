@@ -6,7 +6,6 @@ const commands = [
     require('./run-ios'),
     require('./run-android'),
     require('./publish'),
-    require('./init-code-push')
 ];
 
 module.exports = commands;

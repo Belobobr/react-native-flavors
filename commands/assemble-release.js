@@ -8,12 +8,13 @@ function setup() {
         .command('assemble-release')
         .description('assemble release build for current flavor and platform')
         .alias('ad')
-        .arguments('[platform] [flavorName]')
+        .arguments('<platform> [flavorName]')
         .action((platform, flavorName) => {
             console.log(flavorName);
 
+            //TODO don't hardcode build types
             //TODO User need to have opportunity to choose create new flavor or not (if not present).
-            initFlavor(flavorName)
+            initFlavor(platform, flavorName, 'release')
                 .then(flavorName => {
                     if (platform.toLowerCase() === 'android') {
                         console.log('assemble-release for flavor: ' + flavorName);

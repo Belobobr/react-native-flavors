@@ -16,8 +16,10 @@ function setup() {
         .action(flavorName => {
             console.log(flavorName);
 
+
+            //TODO don't hardcode build types
             //TODO User need to have opportunity to choose create new flavor or not (if not present).
-            initFlavor(flavorName)
+            initFlavor('android', flavorName, 'beta')
                 .then(flavorName => {
                     console.log('run-android for flavor: ' + flavorName);
                     let cmd = 'react-native';

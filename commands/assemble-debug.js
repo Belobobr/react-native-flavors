@@ -3,17 +3,19 @@ const program = require('commander');
 const {run: initFlavor} = require('./init');
 const child_process = require('child_process');
 
+//TODO add build types to gradle
 function setup() {
     program
         .command('assemble-debug')
         .description('assemble debug build for current flavor and platform')
         .alias('ad')
-        .arguments('[platform] [flavorName]')
+        .arguments('<platform> [flavorName]')
         .action((platform, flavorName) => {
             console.log(flavorName);
 
+            //TODO don't hardcode build types
             //TODO User need to have opportunity to choose create new flavor or not (if not present).
-            initFlavor(flavorName)
+            initFlavor(platform, flavorName, 'beta')
                 .then(flavorName => {
                     if (platform.toLowerCase() === 'android') {
                         let cmd = `cd android && ./gradlew assemble${flavorName}Debug`;
