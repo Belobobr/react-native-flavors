@@ -12,18 +12,18 @@ function resolveFlavorName(argFlavorName) {
         })
         .then(data => JSON.parse(data))
         .then(config => {
-            let flavorName = argFlavorName || config.current;
-            if (!flavorName) {
-                throw Error('Flavor name not specified.');
-            }
-
-            if (!config.flavors) {
+            if (!config.flavors || config.flavors.length === 0) {
                 throw Error('Flavors not specified in config.json.')
             }
 
-            //ищем в конфиге указанный flavor, не нашли кидаем ошибку
-            if (!config.flavors.includes(flavorName)) {
-                throw Error('Flavor {' + flavorName + '} not specified in flavors.')
+            let flavorName;
+            if (!argFlavorName) {
+                flavorName = config.flavors[0];
+            } else {
+                flavorName = config.flavors.find(flavorName => flavorName === argFlavorName);
+                if (!flavorName) {
+                    throw Error('Flavor not specified in config.json');
+                }
             }
 
             console.log('Resolved flavorName: ' + flavorName);

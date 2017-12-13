@@ -19,7 +19,7 @@ function setup() {
 
             //TODO don't hardcode build types
             //TODO User need to have opportunity to choose create new flavor or not (if not present).
-            initFlavor('android', flavorName, 'beta')
+            initFlavor('Android', flavorName, 'beta')
                 .then(flavorName => {
                     console.log('run-android for flavor: ' + flavorName);
                     let cmd = 'react-native';
@@ -28,7 +28,6 @@ function setup() {
                         child_process.execFileSync(cmd, [
                             `run-android`,
                             `--variant=${flavorName}Debug`,
-                            `--appIdSuffix=${helper.getApplicationIdSuffix(flavorName)}`
                         ], {
                             stdio: [process.stdin, process.stdout, process.stderr],
                         });

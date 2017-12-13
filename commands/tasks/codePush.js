@@ -28,7 +28,7 @@ function resolveDefaultDeploymentKey(flavorName, buildType, platform, codePushTo
         .then(applications => {
             const applicationName = getApplicationNameForFlavorAndOs(flavorName, platform);
 
-            let application = applications.find(application => application.name === applicationName);
+            let application = applications.find(application => application.name.toLowerCase() === applicationName.toLowerCase());
 
             if (!application) {
                 console.log(`Creating application on code push server: ${applicationName}`);
