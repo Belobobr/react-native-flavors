@@ -3,8 +3,8 @@ const program = require('commander');
 
 function setup() {
     program
-        .command('publish')
-        .description('publish the bundle.js')
+        .command('deploy')
+        .description('deploy the bundle.js')
         .alias('p')
 }
 

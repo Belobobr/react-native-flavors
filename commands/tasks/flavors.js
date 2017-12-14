@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 const fs = require('fs-extra');
 const ProjectConfig = require('./../../react-native-cli/core');
 Promise.promisifyAll(fs);
-const linkAndroidFlavor = require('./../../android/index');
+const linkAndroidFlavor = require('../../android/flavor/index');
 
 function linkNativeFlavors(flavorName) {
     console.log('Config: ' + ProjectConfig);

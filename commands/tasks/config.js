@@ -20,7 +20,7 @@ function resolveFlavorName(argFlavorName) {
             if (!argFlavorName) {
                 flavorName = config.flavors[0];
             } else {
-                flavorName = config.flavors.find(flavorName => flavorName === argFlavorName);
+                flavorName = config.flavors.find(flavorName => flavorName.toLowerCase() === argFlavorName.toLowerCase());
                 if (!flavorName) {
                     throw Error('Flavor not specified in config.json');
                 }
@@ -46,7 +46,7 @@ function resolveBuildType(argBuildType) {
             if (!argBuildType) {
                 buildType = config.buildTypes[0];
             } else {
-                buildType = config.buildTypes.find(buildType => buildType.name === argBuildType);
+                buildType = config.buildTypes.find(buildType => buildType.name.toLowerCase() === argBuildType.toLowerCase());
                 if (!buildType) {
                     throw Error('Build type not specified in config.json');
                 }

@@ -5,16 +5,15 @@ const CodePush = require("code-push");
 Promise.promisifyAll(fs);
 const {resolveCodePushTokenId} = require('./config');
 
-function configureCodePush([flavorName, buildType, platform]) {
+function configureCodePush(platform, flavorName, buildType) {
     return resolveCodePushTokenId()
         .then(codePushTokenId => resolveDefaultDeploymentKey(flavorName, buildType, platform, codePushTokenId))
         .then(defaultDeploymentKey => resolveDeploymentInfo(flavorName, buildType, platform, defaultDeploymentKey))
         .then(deploymentInfo => updateFlavorWithDeploymentInfo(flavorName, deploymentInfo))
         .catch(error => {
             console.log('Configure code push error: ' + JSON.stringify(error));
-            return new Promise.resolve(flavorName)
+            throw Error(error);
         })
-        .then(() => new Promise.resolve(flavorName))
 }
 
 //TODO script should update server configuration to correspound config.json
