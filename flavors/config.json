@@ -3,7 +3,7 @@
     "alphaott", "zaaptv"
   ],
   "buildTypes": [
-    {"title": "beta", "deployment" : "beta"},
+    {"title": "beta", "deployment" : "beta", "allDeployments": true, "addSuffix": false},
     {"title": "release", "deployment" : "release"}
   ],
   "current": "alphaott",

@@ -15,7 +15,7 @@ function setup() {
                     console.log(`assemble for platform: ${platform} flavor: ${flavorName} buildType: ${buildType}`);
 
                     if (platform.toLowerCase() === 'android') {
-                        let cmd = `cd android && ./gradlew assemble${flavorName}${buildType}`;
+                        let cmd = `cd android && ./gradlew assemble${flavorName}${buildType.name}`;
 
                         try {
                             child_process.execSync(cmd,{
