@@ -49,7 +49,7 @@ function resolveDeploymentForApplication(application, buildType, codePush) {
     console.log(JSON.stringify(application));
     return codePush.getDeployments(application.name)
         .then((deployments) => {
-            const deploymentName = buildType.deployment;
+            const deploymentName = buildType.deployment || buildType.name;
 
             let deployment = deployments.find(deployment => deployment.name === deploymentName);
 
