@@ -35,7 +35,7 @@ function registerAndroidFlavor(config, name) {
 
 
 function makeFlavorPatch(flavorName) {
-    const installPattern = new RegExp(`\\s*${flavorName} {\\s*\\n\\s*applicationId "${getApplicationId(flavorName)}"\\s*\\n\\s*}\\s*`);
+    const installPattern = new RegExp(`\\s*${flavorName} {\\s*\\n`);
 
     return {
         installPattern,
