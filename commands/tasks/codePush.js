@@ -64,7 +64,7 @@ function resolveDeploymentForApplication(application, buildType, codePush) {
 }
 
 function getApplicationNameForFlavorAndOs(flavorName, os) {
-    return `webtv-${flavorName}-mobile-${os}`;
+    return `com.${flavorName}.mw.client.mobile.${os}`;
 }
 
 function resolveDeploymentInfo(buildType, platform, defaultDeployment, codePushTokenId) {

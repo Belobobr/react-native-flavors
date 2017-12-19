@@ -1,6 +1,6 @@
 {
   "name": "react-native-build-flavors",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A command line tool for creating aps with build flavors",
   "main": "index.js",
   "scripts": {

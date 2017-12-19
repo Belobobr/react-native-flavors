@@ -78,17 +78,8 @@ function resolvePlatform(argPlatform) {
 }
 
 function getCodePushTokenId() {
-    return fs.readFileAsync(CONFIG_PATH, 'utf8')
-        .catch(() => {
-            throw Error("Can't find flavor config at path: " + path.resolve(CONFIG_PATH))
-        })
-        .then(data => JSON.parse(data))
-        .then(config => {
-            if (!config.codePushTokenId) {
-                throw Error('Code push token id not specified.');
-            }
-            return config.codePushTokenId;
-        })
+    console.log(process.env.CODE_PUSH_ACCESS_TOKEN);
+    return Promise.resolve(process.env.CODE_PUSH_ACCESS_TOKEN);
 }
 
 module.exports = {
